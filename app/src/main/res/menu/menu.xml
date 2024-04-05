@@ -2,7 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu"
-        android:title="about"
-        />
+        android:id="@+id/tambah"
+        android:icon="@drawable/baseline_add_24"
+        android:title="tambah"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/baseline_people_24"
+        android:title="About"
+        app:showAsAction="always"/>
 </menu>
