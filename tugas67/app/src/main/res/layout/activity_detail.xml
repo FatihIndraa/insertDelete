@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".DetailActivity"
+    android:orientation="vertical">
+    <!--nama-->
+    <TextView
+        android:id="@+id/textView"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama" />
+
+    <TextView
+        android:id="@+id/nama"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <!--nomor-->
+    <TextView
+        android:id="@+id/textView2"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Nomor" />
+    <TextView
+        android:id="@+id/nomor"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--tanggal lahir-->
+    <TextView
+        android:id="@+id/textView3"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="tanggal lahir" />
+    <TextView
+        android:id="@+id/tanggal"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--alamat-->
+    <TextView
+        android:id="@+id/textView4"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="alamat" />
+
+    <TextView
+        android:id="@+id/alamat"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--button-->
+    <Button
+        android:id="@+id/panggil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Panggil"/>
+    <Button
+        android:id="@+id/pesan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pesan"/>
+    <Button
+        android:id="@+id/kembali"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kembali"/>
+
+</LinearLayout>
