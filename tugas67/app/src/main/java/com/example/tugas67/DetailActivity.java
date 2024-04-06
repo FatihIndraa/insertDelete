@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class DetailActivity extends AppCompatActivity {
     protected Cursor cursor;
     Database database;
-    Button batal,simpan;
-    EditText nama,nomor,tanggal,alamat;
+    TextView nama,nomor,tanggal,alamat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

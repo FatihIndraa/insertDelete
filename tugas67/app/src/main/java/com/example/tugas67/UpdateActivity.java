@@ -25,7 +25,7 @@
             super.onCreate(savedInstanceState);
             EdgeToEdge.enable(this);
             setContentView(R.layout.activity_update);
-            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.update), (v, insets) -> {
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.edit), (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
                 return insets;
@@ -35,10 +35,10 @@
             nomor = findViewById(R.id.nomor);
             tanggal = findViewById(R.id.tanggal);
             alamat = findViewById(R.id.alamat);
-            update = findViewById(R.id.update);
+            update = findViewById(R.id.update_button);
 
 
-            SQLiteDatabase db = database.getReadableDatabase();
+            SQLiteDatabase db = database.getWritableDatabase();
             cursor = db.rawQuery("SELECT * FROM kontak WHERE nama = '" +
                     getIntent().getStringExtra("nama")+"'", null);
 
@@ -50,6 +50,7 @@
                 nomor.setText(cursor.getString(2).toString());
                 tanggal.setText(cursor.getString(3).toString());
                 alamat.setText(cursor.getString(4).toString());
+
 
             }
             update.setOnClickListener(new View.OnClickListener() {
