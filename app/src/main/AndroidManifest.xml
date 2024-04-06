@@ -13,15 +13,6 @@
         android:theme="@style/Theme.UpdateDelete"
         tools:targetApi="31">
         <activity
-            android:name=".lihat"
-            android:exported="false" />
-        <activity
-            android:name=".tambah"
-            android:exported="false" />
-        <activity
-            android:name=".update"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

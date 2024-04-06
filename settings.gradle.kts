@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "updateDelete"
+rootProject.name = "UpdateDelete"
 include(":app")
  
