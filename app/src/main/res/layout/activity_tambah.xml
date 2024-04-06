@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="32dp"
-        android:text="@string/tambah_kontak"
+        android:text="@string/update_kontak"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
-    <!-- Form Tambah Kontak -->
+    <!-- Form Update -->
     <EditText
         android:id="@+id/editText1"
         android:layout_width="match_parent"

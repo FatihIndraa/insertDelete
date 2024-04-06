@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">updateDelete</string>
+    <string name="batal">Batal</string>
+    <string name="simpan">Simpan</string>
+    <string name="tambah_kontak">Tambah Kontak</string>
+    <string name="update_kontak">Update Kontak</string>
+    <string name="kembali">kembali</string>
+    <string name="pesan">Pesan</string>
+    <string name="panggil">Panggil</string>
 </resources>
