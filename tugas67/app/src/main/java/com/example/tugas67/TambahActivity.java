@@ -1,6 +1,7 @@
 package com.example.tugas67;
 
-import android.database.Cursor;
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -8,57 +9,56 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 public class TambahActivity extends AppCompatActivity {
-    protected Cursor cursor;
-    Database database;
-    Button batal,simpan;
-    EditText nama,nomor,tanggal,alamat;
+
+    EditText editTextNama, editTextNomor, editTextTanggal, editTextAlamat;
+    Button buttonSimpan;
+    Database dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tambah);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.tambah), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        database = new Database(this);
-        nama = findViewById(R.id.nama);
-        nomor = findViewById(R.id.nomor);
-        tanggal = findViewById(R.id.tanggal);
-        alamat = findViewById(R.id.alamat);
-        simpan = findViewById(R.id.simpan);
+        dbHelper = new Database(this);
+        editTextNama = findViewById(R.id.nama);
+        editTextNomor = findViewById(R.id.nomor);
+        editTextTanggal = findViewById(R.id.tanggal);
+        editTextAlamat = findViewById(R.id.alamat);
+        buttonSimpan = findViewById(R.id.simpan);
 
-        simpan.setOnClickListener(new View.OnClickListener() {
+        buttonSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLiteDatabase db = database.getWritableDatabase();
-                db.execSQL("INSERT INTO kontak (no, nama, tgl, alamat) values('"+
-                        nomor.getText().toString() + "', '" +
-                        nama.getText().toString() + "', '" +
-                        tanggal.getText().toString() + "', '" +
-                        alamat.getText().toString() + "')");
-                Toast.makeText(TambahActivity.this, "Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show();
-                MainActivity.main.RefreshList();
-                finish();
+                tambahKontak();
             }
         });
-        batal = findViewById(R.id.batal);
-        batal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // Menutup aktivitas saat ini dan kembali ke aktivitas sebelumnya (menu utama)
-            }
-        });
+    }
 
+    // Method untuk menambahkan kontak baru ke dalam database
+    private void tambahKontak() {
+        String nama = editTextNama.getText().toString().trim();
+        String nomor = editTextNomor.getText().toString().trim();
+        String tanggal = editTextTanggal.getText().toString().trim();
+        String alamat = editTextAlamat.getText().toString().trim();
+
+        if (!nama.isEmpty() && !nomor.isEmpty() && !tanggal.isEmpty() && !alamat.isEmpty()) {
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("nama", nama);
+            values.put("no", nomor);
+            values.put("tgl", tanggal);
+            values.put("alamat", alamat);
+
+            long newRowId = db.insert("kontak", null, values);
+            if (newRowId != -1) {
+                Toast.makeText(this, "Kontak berhasil ditambahkan", Toast.LENGTH_SHORT).show();
+                finish(); // Kembali ke MainActivity setelah menambahkan kontak
+            } else {
+                Toast.makeText(this, "Gagal menambahkan kontak", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Silakan lengkapi semua field", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.tugas67;
 
-import android.annotation.SuppressLint;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,95 +12,115 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.Currency;
+import android.widget.Toast;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] daftar;
-    ListView listview;
-    protected Cursor cursor;
-    Database database;
-    public static MainActivity main;
+    ListView listView;
+    ArrayList<String> contactsList;
+    Database dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        dbHelper = new Database(this);
+        listView = findViewById(R.id.listView);
+
+        contactsList = new ArrayList<>();
+        displayContacts();
+
+        // Set listener untuk item yang dipilih pada ListView
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent pindah = new Intent(MainActivity.this, TambahActivity.class);
-                startActivity(pindah);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final String selectedContact = contactsList.get(position);
+                // Menampilkan dialog pilihan (lihat, edit, delete)
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Pilihan")
+                        .setItems(new String[]{"Lihat Kontak", "Edit Kontak", "Delete Kontak"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0:
+                                        // Lihat kontak
+                                        Intent intentDetail = new Intent(MainActivity.this, DetailActivity.class);
+                                        intentDetail.putExtra("nama", selectedContact);
+                                        startActivity(intentDetail);
+                                        break;
+                                    case 1:
+                                        // Edit kontak
+                                        Intent intentUpdate = new Intent(MainActivity.this, UpdateActivity.class);
+                                        intentUpdate.putExtra("nama", selectedContact);
+                                        startActivity(intentUpdate);
+                                        break;
+                                    case 2:
+                                        // Hapus kontak
+                                        deleteContact(selectedContact);
+                                        break;
+                                }
+                            }
+                        })
+                        .show();
             }
         });
-        main = this;
-        database = new Database(this);
-        RefreshList();
-    }
 
-    @SuppressLint("Range")
-    public void RefreshList() {
-        SQLiteDatabase db = database.getReadableDatabase();
-        cursor = db.rawQuery("SELECT * FROM kontak", null);
-        daftar = new String[cursor.getCount()];
-        cursor.moveToFirst();
-        for (int i = 0; i<cursor.getCount(); i++){
-            cursor.moveToPosition(i);
-            daftar[i] = cursor.getString(cursor.getColumnIndex("nama"));
-        }
-        listview = (ListView) findViewById(R.id.listView);
-        listview.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, daftar));
-        listview.setSelected(true);
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // Set listener untuk float button
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView arg0, View arg1, int arg2, long arg3)
-            {
-                final String selection = daftar[arg2];
-                final CharSequence[] dialogitem = {"Lihat Kontak", "Update Kontak", "Hapus Kontak"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Pilihan");
-                builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        switch (item) {
-                            case 0:
-                                Intent i = new Intent(getApplicationContext(), DetailActivity.class);
-                                i.putExtra("nama", selection); startActivity(i);
-                                break;
-                            case 1:
-                                Intent in = new Intent(getApplicationContext(), UpdateActivity.class);
-                                in.putExtra("no", selection); startActivity(in);
-                                break;
-                            case 2:
-                                SQLiteDatabase db = database.getWritableDatabase();
-                                db.execSQL("DELETE FROM kontak WHERE nama = '" + selection + "'");
-                                RefreshList();
-                                break;
-                        }
-                    }
-                });
-                builder.create().show();
-            }});
-        ((ArrayAdapter)listview.getAdapter()).notifyDataSetChanged();
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TambahActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
+    // Method untuk menampilkan daftar kontak dari database
+    private void displayContacts() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT nama FROM kontak", null);
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                int namaIndex = cursor.getColumnIndex("nama");
+                if (namaIndex >= 0) {
+                    String nama = cursor.getString(namaIndex);
+                    contactsList.add(nama);
+                } else {
+                    Toast.makeText(this, "Kolom 'nama' tidak ditemukan", Toast.LENGTH_SHORT).show();
+                }
+            }
+            cursor.close();
+            // Buat ArrayAdapter untuk menghubungkan data ArrayList dengan ListView
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contactsList);
+            listView.setAdapter(adapter);
+        } else {
+            Toast.makeText(this, "Tidak ada kontak yang tersedia", Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    // Method untuk menghapus kontak dari database berdasarkan nama
+    private void deleteContact(String nama) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int deletedRows = db.delete("kontak", "nama = ?", new String[]{nama});
+        if (deletedRows > 0) {
+            Toast.makeText(this, "Kontak berhasil dihapus", Toast.LENGTH_SHORT).show();
+            // Perbarui daftar kontak setelah penghapusan
+            contactsList.remove(nama);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contactsList);
+            listView.setAdapter(adapter);
+        } else {
+            Toast.makeText(this, "Gagal menghapus kontak", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Bersihkan daftar kontak sebelum menampilkan lagi
+        contactsList.clear();
+        // Tampilkan daftar kontak yang diperbarui
+        displayContacts();
+    }
 }
