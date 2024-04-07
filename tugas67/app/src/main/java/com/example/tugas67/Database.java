@@ -1,4 +1,3 @@
-// Database.java
 package com.example.tugas67;
 
 import android.content.Context;

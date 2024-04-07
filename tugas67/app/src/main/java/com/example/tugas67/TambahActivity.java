@@ -1,6 +1,4 @@
-// TambahActivity.java
 package com.example.tugas67;
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
@@ -12,19 +10,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 import java.util.Calendar;
-
 public class TambahActivity extends AppCompatActivity {
-
     EditText editTextNama, editTextNomor, editTextTanggal, editTextAlamat;
     Button buttonSimpan, buttonbatal;
     Database dbHelper;
     Calendar calendar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah);
-
         dbHelper = new Database(this);
         editTextNama = findViewById(R.id.nama);
         editTextNomor = findViewById(R.id.nomor);
@@ -32,10 +26,7 @@ public class TambahActivity extends AppCompatActivity {
         editTextAlamat = findViewById(R.id.alamat);
         buttonSimpan = findViewById(R.id.simpan);
         buttonbatal = findViewById(R.id.batal);
-
-        // Membuat objek Calendar
         calendar = Calendar.getInstance();
-
         // Set listener untuk editTextTanggal agar muncul DatePickerDialog saat diklik
         editTextTanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +34,6 @@ public class TambahActivity extends AppCompatActivity {
                 showDatePickerDialog();
             }
         });
-
         buttonSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +48,6 @@ public class TambahActivity extends AppCompatActivity {
             }
         });
     }
-
     // Method untuk menampilkan DatePickerDialog
     private void showDatePickerDialog() {
         int year = calendar.get(Calendar.YEAR);
@@ -77,7 +66,6 @@ public class TambahActivity extends AppCompatActivity {
         // Tampilkan DatePickerDialog
         datePickerDialog.show();
     }
-
     // Method untuk menambahkan kontak baru ke dalam database
     private void tambahKontak() {
         String nama = editTextNama.getText().toString().trim();

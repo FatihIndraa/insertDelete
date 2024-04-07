@@ -1,5 +1,4 @@
 package com.example.tugas67;
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,18 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 public class DetailActivity extends AppCompatActivity {
-
     TextView textViewNama, textViewNomor, textViewTanggal, textViewAlamat;
     Database dbHelper;
     Button pesan, panggil, kembali;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
         dbHelper = new Database(this);
         textViewNama = findViewById(R.id.nama);
         textViewNomor = findViewById(R.id.nomor);
@@ -30,7 +25,6 @@ public class DetailActivity extends AppCompatActivity {
         pesan = findViewById(R.id.pesan);
         panggil = findViewById(R.id.panggil);
         kembali = findViewById(R.id.kembali);
-
         // Ambil data kontak yang dipilih dari Intent
         Intent intent = getIntent();
         if (intent.hasExtra("nama")) {
@@ -40,7 +34,6 @@ public class DetailActivity extends AppCompatActivity {
             Toast.makeText(this, "Data kontak tidak ditemukan", Toast.LENGTH_SHORT).show();
             finish();
         }
-
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +41,6 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
     }
-
     // Method untuk menampilkan detail kontak
     private void displayContactDetails(String selectedContact) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();

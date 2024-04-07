@@ -1,5 +1,4 @@
 package com.example.tugas67;
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
@@ -12,7 +11,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 import java.util.Calendar;
-
 public class UpdateActivity extends AppCompatActivity {
     EditText editTextNama, editTextNomor, editTextTanggal, editTextAlamat;
     Button buttonUpdate, buttonBatal;
