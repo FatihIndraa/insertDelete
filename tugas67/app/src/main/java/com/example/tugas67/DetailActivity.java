@@ -29,14 +29,14 @@ public class DetailActivity extends AppCompatActivity {
             return insets;
         });
         database = new Database(this);
-        nama = findViewById(R.id.nama);
-        nomor = findViewById(R.id.nomor);
-        tanggal = findViewById(R.id.tanggal);
-        alamat = findViewById(R.id.alamat);
+        nama = (TextView) findViewById(R.id.nama);
+        nomor = (TextView)findViewById(R.id.nomor);
+        tanggal = (TextView)findViewById(R.id.tanggal);
+        alamat = (TextView)findViewById(R.id.alamat);
 
         SQLiteDatabase db = database.getReadableDatabase();
         cursor = db.rawQuery("SELECT * FROM kontak WHERE no= '"+
-                getIntent().getStringExtra("no")+"'", null);
+                getIntent().getStringExtra("nama")+"'", null);
 
         cursor.moveToFirst();
         if (cursor.getCount()>0){
