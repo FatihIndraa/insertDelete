@@ -1,87 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tambah"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:context=".TambahActivity"
-    android:orientation="vertical">
+    android:background="@color/light_gray">
 
-
-
-    <!--nama-->
     <TextView
-        android:id="@+id/textView"
-        android:textColor="@color/design_default_color_primary_dark"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nama" />
+        android:text="Tambah Kontak"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama"
+        android:textSize="18sp"
+        android:textColor="@color/black"/>
+
     <EditText
         android:id="@+id/nama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_rounded_bg"
         android:inputType="text"
-        android:hint="masukkan nama"/>
+        android:hint="Masukkan nama"
+        android:textColor="@color/black"
+        android:textColorHint="@color/dark_gray"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"/>
 
-    <!--nomor-->
     <TextView
         android:id="@+id/textView2"
-        android:textColor="@color/design_default_color_primary_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Nomor" />
+        android:text="Nomor"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp"/>
+
     <EditText
         android:id="@+id/nomor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="masukkan nomor"/>
+        android:background="@drawable/edit_text_rounded_bg"
+        android:inputType="phone"
+        android:hint="Masukkan nomor"
+        android:textColor="@color/black"
+        android:textColorHint="@color/dark_gray"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"/>
 
-    <!--tanggal lahir-->
     <TextView
         android:id="@+id/textView3"
-        android:textColor="@color/design_default_color_primary_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="tanggal lahir" />
-    <EditText
-        android:id="@+id/tanggal"
+        android:text="Tanggal Lahir"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp"/>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:hint="DD/MM/YY"/>
+        android:layout_marginTop="8dp">
 
-    <!--alamat-->
+        <EditText
+            android:id="@+id/tanggal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_rounded_bg"
+            android:inputType="none"
+            android:hint="DD/MM/YY"
+            android:textColor="@color/black"
+            android:textColorHint="@color/dark_gray"
+            android:padding="12dp"/>
+
+        <ImageView
+            android:id="@+id/calendar_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/calendar"/>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/textView4"
-        android:textColor="@color/design_default_color_primary_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="alamat" />
+        android:text="Alamat"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp"/>
+
     <EditText
         android:id="@+id/alamat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_rounded_bg"
         android:inputType="text"
-        android:hint="masukkan alamat"/>
+        android:hint="Masukkan alamat"
+        android:textColor="@color/black"
+        android:textColorHint="@color/dark_gray"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"/>
 
-    <Button
-        android:id="@+id/batal"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Batal"/>
-    <Button
-        android:id="@+id/simpan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Simpan"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
 
+        <Button
+            android:id="@+id/batal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Batal"
+            android:textColor="@color/white"
+            android:background="@drawable/button_rounded_bg_red"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/simpan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Simpan"
+            android:textColor="@color/white"
+            android:background="@drawable/button_rounded_bg_blue"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
 </LinearLayout>

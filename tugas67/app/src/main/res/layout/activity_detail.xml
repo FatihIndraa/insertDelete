@@ -5,85 +5,123 @@
     android:id="@+id/detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:context=".DetailActivity"
-    android:orientation="vertical">
-    <!--nama-->
+    android:background="@color/light_gray">
+
+
     <TextView
-        android:id="@+id/textView"
-        android:textColor="@color/design_default_color_primary_dark"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nama" />
+        android:text="Lihat Kontak"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="center"/>
+
+    <!-- Nama -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/nama"
-        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"/>
 
-
-    <!--nomor-->
+    <!-- Nomor -->
     <TextView
         android:id="@+id/textView2"
-        android:textColor="@color/design_default_color_primary_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Nomor" />
+        android:text="Nomor"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"/>
+
     <TextView
         android:id="@+id/nomor"
-        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"/>
 
-    <!--tanggal lahir-->
+    <!-- Tanggal Lahir -->
     <TextView
         android:id="@+id/textView3"
-        android:textColor="@color/design_default_color_primary_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="tanggal lahir" />
+        android:text="Tanggal Lahir"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"/>
+
     <TextView
         android:id="@+id/tanggal"
-        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"/>
 
-    <!--alamat-->
+    <!-- Alamat -->
     <TextView
         android:id="@+id/textView4"
-        android:textColor="@color/design_default_color_primary_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="alamat" />
+        android:text="Alamat"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/alamat"
-        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"/>
 
-    <!--button-->
+    <!-- Button -->
     <Button
         android:id="@+id/panggil"
+        android:onClick="panggil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Panggil"/>
+        android:text="Panggil"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
+        android:layout_marginBottom="8dp"/>
+
     <Button
         android:id="@+id/pesan"
+        android:onClick="pesan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pesan"/>
+        android:text="Pesan"
+        android:backgroundTint="@color/green"
+        android:textColor="@color/white"
+        android:layout_marginBottom="8dp"/>
+
     <Button
         android:id="@+id/kembali"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kembali"/>
+        android:text="Kembali"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

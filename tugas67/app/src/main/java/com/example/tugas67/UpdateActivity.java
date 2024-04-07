@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class UpdateActivity extends AppCompatActivity {
 
     EditText editTextNama, editTextNomor, editTextTanggal, editTextAlamat;
-    Button buttonUpdate;
+    Button buttonUpdate, buttonBatal;
     Database dbHelper;
 
     @Override
@@ -27,6 +27,7 @@ public class UpdateActivity extends AppCompatActivity {
         editTextTanggal = findViewById(R.id.tanggal);
         editTextAlamat = findViewById(R.id.alamat);
         buttonUpdate = findViewById(R.id.update_button);
+        buttonBatal = findViewById(R.id.batal);
 
         // Ambil data kontak yang dipilih dari database
         displayContactDetails();
@@ -35,6 +36,12 @@ public class UpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateContact();
+            }
+        });
+        buttonBatal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

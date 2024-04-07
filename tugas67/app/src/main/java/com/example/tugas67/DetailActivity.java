@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +15,7 @@ public class DetailActivity extends AppCompatActivity {
 
     TextView textViewNama, textViewNomor, textViewTanggal, textViewAlamat;
     Database dbHelper;
+    Button pesan, panggil, kembali;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,9 @@ public class DetailActivity extends AppCompatActivity {
         textViewNomor = findViewById(R.id.nomor);
         textViewTanggal = findViewById(R.id.tanggal);
         textViewAlamat = findViewById(R.id.alamat);
+        pesan = findViewById(R.id.pesan);
+        panggil = findViewById(R.id.panggil);
+        kembali = findViewById(R.id.kembali);
 
         // Ambil data kontak yang dipilih dari Intent
         Intent intent = getIntent();
@@ -33,6 +40,13 @@ public class DetailActivity extends AppCompatActivity {
             Toast.makeText(this, "Data kontak tidak ditemukan", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+        kembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     // Method untuk menampilkan detail kontak
@@ -62,5 +76,18 @@ public class DetailActivity extends AppCompatActivity {
             finish();
         }
         cursor.close();
+    }
+
+    public void panggil(View view) {
+        Intent panggil = new Intent(Intent. ACTION_DIAL);
+        panggil.setData(Uri.parse("tel: " + textViewNomor.getText().toString()));
+        startActivity(panggil);
+    }
+
+    public void pesan(View view) {
+        Intent pesan = new Intent(Intent.ACTION_SENDTO);
+        pesan.setData(Uri.parse("smsto: " + textViewNomor.getText().toString()));
+        startActivity(pesan);
+
     }
 }

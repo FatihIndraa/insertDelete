@@ -5,82 +5,110 @@
     android:id="@+id/edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:context=".UpdateActivity"
-    android:orientation="vertical">
-    <!--nama-->
+    android:background="@drawable/background_gradient">
+
+    <!-- Judul -->
     <TextView
-        android:id="@+id/textView"
-        android:textColor="@color/design_default_color_primary_dark"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nama" />
-    <EditText
-        android:id="@+id/nama"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="masukkan nama"/>
+        android:text="Update Kontak"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"/>
 
-    <!--nomor-->
-    <TextView
-        android:id="@+id/textView2"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Nomor" />
+    <!-- Nama -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/nomor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="masukkan nomor"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nama"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <!--tanggal lahir-->
-    <TextView
-        android:id="@+id/textView3"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="tanggal lahir" />
-    <EditText
-        android:id="@+id/tanggal"
+    <!-- Nomor -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:hint="DD/MM/YY"/>
+        android:layout_marginTop="16dp">
 
-    <!--alamat-->
-    <TextView
-        android:id="@+id/textView4"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="alamat" />
-    <EditText
-        android:id="@+id/alamat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="masukkan alamat"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nomor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nomor"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <!--button-->
-    <Button
-        android:id="@+id/batal"
+    <!-- Tanggal Lahir -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Batal"/>
-    <Button
-        android:id="@+id/update_button"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tanggal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tanggal Lahir (DD/MM/YY)"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Alamat -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update"/>
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/alamat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alamat"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Tombol -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp">
+
+        <Button
+            android:id="@+id/batal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Batal"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/red"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/update_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,3 +1,4 @@
+// Database.java
 package com.example.tugas67;
 
 import android.content.Context;
@@ -16,8 +17,8 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table kontak(no integer primary key,nama text null,tgl text null,alamat text null);";
-        Log.d("Data","onCreate: " + sql); db.execSQL(sql);
-        sql = "INSERT INTO kontak (no,nama,tgl,alamat) VALUES ('0895381191380','Fatih Indra','140903','Kudus');"; db.execSQL(sql);
+        Log.d("Data","onCreate: " + sql);
+        db.execSQL(sql);
     }
 
     @Override

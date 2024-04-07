@@ -1,19 +1,24 @@
+// TambahActivity.java
 package com.example.tugas67;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.Calendar;
 
 public class TambahActivity extends AppCompatActivity {
 
     EditText editTextNama, editTextNomor, editTextTanggal, editTextAlamat;
-    Button buttonSimpan;
+    Button buttonSimpan, buttonbatal;
     Database dbHelper;
+    Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,18 @@ public class TambahActivity extends AppCompatActivity {
         editTextTanggal = findViewById(R.id.tanggal);
         editTextAlamat = findViewById(R.id.alamat);
         buttonSimpan = findViewById(R.id.simpan);
+        buttonbatal = findViewById(R.id.batal);
+
+        // Membuat objek Calendar
+        calendar = Calendar.getInstance();
+
+        // Set listener untuk editTextTanggal agar muncul DatePickerDialog saat diklik
+        editTextTanggal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
 
         buttonSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +50,32 @@ public class TambahActivity extends AppCompatActivity {
                 tambahKontak();
             }
         });
+        buttonbatal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Kembali ke menu utama (MainActivity)
+                finish();
+            }
+        });
+    }
+
+    // Method untuk menampilkan DatePickerDialog
+    private void showDatePickerDialog() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(TambahActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Set tanggal yang dipilih ke EditText
+                        editTextTanggal.setText(String.format("%02d-%02d-%02d", dayOfMonth, month + 1, year % 100));
+                    }
+                }, year, month, day);
+
+        // Tampilkan DatePickerDialog
+        datePickerDialog.show();
     }
 
     // Method untuk menambahkan kontak baru ke dalam database
