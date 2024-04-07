@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,8 +9,6 @@
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
     android:background="@color/light_gray">
-
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -22,8 +18,6 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_gravity="center"/>
-
-    <!-- Nama -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -32,7 +26,6 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:layout_marginBottom="8dp"/>
-
     <TextView
         android:id="@+id/nama"
         android:layout_width="match_parent"
@@ -40,8 +33,6 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"/>
-
-    <!-- Nomor -->
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -50,7 +41,6 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:layout_marginBottom="8dp"/>
-
     <TextView
         android:id="@+id/nomor"
         android:layout_width="match_parent"
@@ -58,8 +48,6 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"/>
-
-    <!-- Tanggal Lahir -->
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -68,7 +56,6 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:layout_marginBottom="8dp"/>
-
     <TextView
         android:id="@+id/tanggal"
         android:layout_width="match_parent"
@@ -76,8 +63,6 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"/>
-
-    <!-- Alamat -->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -86,7 +71,6 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:layout_marginBottom="8dp"/>
-
     <TextView
         android:id="@+id/alamat"
         android:layout_width="match_parent"
@@ -94,8 +78,6 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"/>
-
-    <!-- Button -->
     <Button
         android:id="@+id/panggil"
         android:onClick="panggil"
@@ -105,7 +87,6 @@
         android:backgroundTint="@color/blue"
         android:textColor="@color/white"
         android:layout_marginBottom="8dp"/>
-
     <Button
         android:id="@+id/pesan"
         android:onClick="pesan"
@@ -115,7 +96,6 @@
         android:backgroundTint="@color/green"
         android:textColor="@color/white"
         android:layout_marginBottom="8dp"/>
-
     <Button
         android:id="@+id/kembali"
         android:layout_width="match_parent"
@@ -123,5 +103,4 @@
         android:text="Kembali"
         android:backgroundTint="@color/red"
         android:textColor="@color/white"/>
-
 </LinearLayout>
