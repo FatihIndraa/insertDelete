@@ -1,4 +1,5 @@
 package com.example.tugas67;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,11 +13,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<String> contactsList;
     Database dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,52 +29,53 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         contactsList = new ArrayList<>();
         displayContacts();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final String selectedContact = contactsList.get(position);
-                // Menampilkan dialog pilihan (lihat, edit, delete)
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Pilihan")
-                        .setItems(new String[]{"Lihat Kontak", "Edit Kontak", "Delete Kontak"}, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case 0:
-                                        // Lihat kontak
-                                        Intent intentDetail = new Intent(MainActivity.this, DetailActivity.class);
-                                        intentDetail.putExtra("nama", selectedContact);
-                                        startActivity(intentDetail);
-                                        break;
-                                    case 1:
-                                        // Edit kontak
-                                        Intent intentUpdate = new Intent(MainActivity.this, UpdateActivity.class);
-                                        intentUpdate.putExtra("nama", selectedContact);
-                                        startActivity(intentUpdate);
-                                        break;
-                                    case 2:
-                                        // Hapus kontak
-                                        deleteContact(selectedContact);
-                                        break;
-                                }
-                            }
-                        })
-                        .show();
-            }
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            final String selectedContact = contactsList.get(position);
+            showOptionsDialog(selectedContact);
         });
 
-        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TambahActivity.class);
-                startActivity(intent);
-            }
+        findViewById(R.id.fab).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TambahActivity.class);
+            startActivity(intent);
         });
     }
+
+    private void showOptionsDialog(final String selectedContact) {
+        String[] options = {"Lihat Kontak", "Edit Kontak", "Hapus Kontak"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Pilihan");
+        builder.setItems(options, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    startDetailActivity(selectedContact);
+                    break;
+                case 1:
+                    startUpdateActivity(selectedContact);
+                    break;
+                case 2:
+                    deleteContact(selectedContact);
+                    break;
+            }
+        });
+        builder.show();
+    }
+    private void startDetailActivity(String selectedContact) {
+        Intent intentDetail = new Intent(MainActivity.this, DetailActivity.class);
+        intentDetail.putExtra("nama", selectedContact);
+        startActivity(intentDetail);
+    }
+
+    private void startUpdateActivity(String selectedContact) {
+        Intent intentUpdate = new Intent(MainActivity.this, UpdateActivity.class);
+        intentUpdate.putExtra("nama", selectedContact);
+        startActivity(intentUpdate);
+    }
+
     private void displayContacts() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT nama FROM kontak", null);
-        if (cursor != null && cursor.getCount() > 0) {
+        if (cursor != null) {
             while (cursor.moveToNext()) {
                 int namaIndex = cursor.getColumnIndex("nama");
                 if (namaIndex >= 0) {
@@ -81,21 +86,20 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             cursor.close();
-            // Buat ArrayAdapter untuk menghubungkan data ArrayList dengan ListView
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contactsList);
             listView.setAdapter(adapter);
         } else {
             Toast.makeText(this, "Tidak ada kontak yang tersedia", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void deleteContact(String nama) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int deletedRows = db.delete("kontak", "nama = ?", new String[]{nama});
         if (deletedRows > 0) {
             Toast.makeText(this, "Kontak berhasil dihapus", Toast.LENGTH_SHORT).show();
             contactsList.remove(nama);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contactsList);
-            listView.setAdapter(adapter);
+            ((ArrayAdapter<String>) listView.getAdapter()).notifyDataSetChanged();
         } else {
             Toast.makeText(this, "Gagal menghapus kontak", Toast.LENGTH_SHORT).show();
         }
