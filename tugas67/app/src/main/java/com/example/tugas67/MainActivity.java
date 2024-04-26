@@ -1,4 +1,5 @@
 package com.example.tugas67;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,18 +14,25 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
     ListView listView;
     ArrayList<String> contactsList;
     Database dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         dbHelper = new Database(this);
         listView = findViewById(R.id.listView);
+
         contactsList = new ArrayList<>();
         displayContacts();
+
+        // Set listener untuk item yang dipilih pada ListView
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -59,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Set listener untuk float button
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,11 +76,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Method untuk menampilkan daftar kontak dari database
     private void displayContacts() {
+        // Membuka database dalam mode baca
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT nama FROM kontak", null);
-        if (cursor != null && cursor.getCount() > 0) {
-            while (cursor.moveToNext()) {
+
+        // Menentukan kolom yang akan diambil dari tabel kontak
+        String[] projection = {
+                "nama"
+        };
+
+        // Menjalankan kueri untuk mengambil semua nama kontak
+        Cursor cursor = db.query(
+                "kontak",   // Nama tabel
+                projection, // Kolom yang ingin diambil
+                null,   // Kriteria seleksi (tidak digunakan)
+                null,   // Nilai kriteria seleksi (tidak digunakan)
+                null,   // Group by (tidak digunakan)
+                null,   // Having (tidak digunakan)
+                null    // Urutan pengurutan (tidak digunakan)
+        );
+
+        // Memeriksa apakah kursor berisi data
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                // Menetapkan nilai yang diperoleh dari database ke ArrayList
                 int namaIndex = cursor.getColumnIndex("nama");
                 if (namaIndex >= 0) {
                     String nama = cursor.getString(namaIndex);
@@ -79,8 +109,11 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Kolom 'nama' tidak ditemukan", Toast.LENGTH_SHORT).show();
                 }
-            }
+            } while (cursor.moveToNext());
+
+            // Menutup cursor setelah selesai menggunakannya
             cursor.close();
+
             // Buat ArrayAdapter untuk menghubungkan data ArrayList dengan ListView
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contactsList);
             listView.setAdapter(adapter);
@@ -88,11 +121,27 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Tidak ada kontak yang tersedia", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // Method untuk menghapus kontak dari database berdasarkan nama
     private void deleteContact(String nama) {
+        // Membuka database dalam mode tulis
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        int deletedRows = db.delete("kontak", "nama = ?", new String[]{nama});
+
+        // Menentukan kriteria seleksi (WHERE clause)
+        String selection = "nama = ?";
+        String[] selectionArgs = { nama };
+
+        // Menjalankan operasi delete pada tabel kontak
+        int deletedRows = db.delete(
+                "kontak",   // Nama tabel
+                selection,  // Kriteria seleksi
+                selectionArgs   // Nilai kriteria seleksi
+        );
+
+        // Memeriksa apakah penghapusan berhasil
         if (deletedRows > 0) {
             Toast.makeText(this, "Kontak berhasil dihapus", Toast.LENGTH_SHORT).show();
+            // Perbarui daftar kontak setelah penghapusan
             contactsList.remove(nama);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contactsList);
             listView.setAdapter(adapter);
@@ -100,10 +149,13 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Gagal menghapus kontak", Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
+        // Bersihkan daftar kontak sebelum menampilkan lagi
         contactsList.clear();
+        // Tampilkan daftar kontak yang diperbarui
         displayContacts();
     }
 }
